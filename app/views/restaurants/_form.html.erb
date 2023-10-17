@@ -1,0 +1,28 @@
+
+<%= simple_form_for(@restaurant) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :description %>
+    <%= f.association :user %>
+  </div>
+
+  <h1>Work Hours</h1>
+  <div>
+    <% @restaurant.restaurant_working_hours.each do |whour| %>
+      <%= f.simple_fields_for :restaurant_working_hours, whour do |whour_form| %>
+        <%= render 'restaurant_working_hour_fields', f: whour_form %>
+      <% end %>
+    <% end %>
+
+    <div class="links">
+      <%= link_to_add_association 'Add Work Hours', f, :restaurant_working_hours %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
