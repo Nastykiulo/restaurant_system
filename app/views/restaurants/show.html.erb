@@ -15,5 +15,14 @@
   <%= @restaurant.user %>
 </p>
 
+<% if @restaurant.menu.attached? %>
+  <h2>Меню ресторана</h2>
+  <% if @restaurant.menu.image? %>
+    <%= link_to image_tag(@restaurant.menu.variant(resize: "4x4")), rails_blob_path(@restaurant.menu, disposition: 'inline') %>
+  <% else %>
+    <%= link_to "Скачать меню", rails_blob_path(@restaurant.menu, disposition: 'inline') %>
+  <% end %>
+<% end %>
+
 <%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
 <%= link_to 'Back', restaurants_path %>

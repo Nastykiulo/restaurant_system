@@ -7,6 +7,14 @@
     <%= f.input :name %>
     <%= f.input :description %>
     <%= f.association :user %>
+
+     <%= f.label :menu, "Меню" %>
+      <% if @restaurant.menu.attached? %>
+        <p>Текущий файл меню:</p>
+        <%= link_to @restaurant.menu.filename, rails_blob_path(@restaurant.menu, disposition: 'inline') %>
+        <br>
+      <% end %>
+    <%= f.file_field :menu %>
   </div>
 
   <h1>Work Hours</h1>
